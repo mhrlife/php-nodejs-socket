@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script src="jq.js"></script>
+    <script>
+        $(function () {
+            // if user is running mozilla then use it's built-in WebSocket
+            window.WebSocket = window.WebSocket || window.MozWebSocket;
+
+            var connection = new WebSocket('ws://127.0.0.1:1337');
+
+            connection.onopen = function () {
+                // connection is opened and ready to use
+                console.log("connected");
+            };
+
+            connection.onerror = function (error) {
+                // an error occurred when sending/receiving data
+            };
+
+            connection.onmessage = function (message) {
+                var app = $("<p>");
+                app.text("Massage :"+message.data);
+                $("#console").append(app)
+            };
+        });
+    </script>
+    </head>
+    <body>
+            <div id="console" style="background: black;color: #eee;width:600px;height: 400px;overflow: scroll;line-height: 15px; padding: 10px;font: 12px tahoma">
+
+            </div>
+            <footer>
+                more information at <a href="http://telegram.me/pp2007ws">@pp2007ws</a>
+            </footer>
+    </body>
+</html>
